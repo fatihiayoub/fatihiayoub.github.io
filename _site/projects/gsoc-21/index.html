@@ -1,0 +1,359 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>            Integrating a module to 3d scan a house within the MapMint4ME android application (OSGeo - MapMint      GSoC 2021) - Ayoub Fatihi      </title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Ayoub Fatihi">
+<meta property="og:title" content="            Integrating a module to 3d scan a house within the MapMint4ME android application (OSGeo - MapMint      GSoC 2021)      ">
+
+
+  <link rel="canonical" href="http://localhost:4000/projects/gsoc-21/">
+  <meta property="og:url" content="http://localhost:4000/projects/gsoc-21/">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Ayoub Fatihi",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Ayoub Fatihi Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Ayoub Fatihi</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/projects/">Get Inspired (projects)</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+<div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/me2022.jpg" class="author__avatar" alt="Ayoub Fatihi">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Ayoub Fatihi</h3>
+    <p class="author__bio">Geomatics and Surveying Engineer</p>
+    <p class="author__bio">Machine learning enthusiast</p>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Morocco</li>
+      
+      
+      
+      
+        <li><a href="mailto:fatihi.ayb at gmail.com" target="_blank" rel="noopener"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i> Email</a></li>
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/ayoubft" target="_blank" rel="noopener"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://scholar.google.com/citations?user=0-f2eX0AAAAJ" target="_blank" rel="noopener"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+      
+      
+      
+        <li><a href="https://orcid.org/my-orcid?orcid=0000-0001-8572-6553" target="_blank" rel="noopener"><i class="ai ai-orcid-square ai-fw"></i> ORCID</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+</div>
+
+
+  <div class="archive">
+    
+      <h1 class="page__title">Integrating a module to 3d scan a house within the MapMint4ME android application (OSGeo - MapMint | GSoC 2021)</h1>
+    
+    <center>
+<img src="../img/tajine-gsoc-21.gif" alt="Tajine model uploading" />
+</center>
+
+<h2 id="introduction-of-mapmint">Introduction of MapMint</h2>
+
+<p>MapMint4ME is an Android application to record your data on the field. MapMint4ME is an Android application for <a href="https://mapmint.com/">MapMint</a> web-mapping services. MapMint4ME gives the users capability to store data without using the internet locally. The data can be a file stored in alpha-numeric format, an audio file, a video file or readings obtained from a Sensor Observation Service (SOS). When the user returns back to a place with network connectivity, the recorded data can be uploaded back to the server.</p>
+
+<p>MapMint4ME is an android application for <a href="https://mapmint.com/">MapMint</a> web-service. MapMint is an internet-based <strong>Geographic Information System</strong>(GIS), designed to facilitate the deployment of <strong>Spatial Data Infrastructure</strong>(SDI). In an SDI, geographic data, metadata, tools, and the users are connected in an interactive manner in a framework so as to use the spatial information in an efficient and flexible way.</p>
+
+<h2 id="abstract">Abstract:</h2>
+
+<p>This project allows a minimalist 3D scan (taking multiple pictures, recording camera position, using opendrone map to rebuild the 3D scene) with the house faces (accessible/visible faces) then load it as georeferenced data with the database and being able to export the data back on MapMint for 3D viewing.</p>
+
+<center>
+<a href="https://ayoubft.github.io/img/gsoc21.png" target="_blank"><img src="../img/gsoc21.png" alt="gsoc-21" /></a>
+_Click the image to see full size_
+</center>
+<h2 id="documentation">Documentation</h2>
+
+<p>My work consist of three parts:</p>
+
+<h3 id="part-one-get-the-pictures-using-mapmint4me">Part One: Get the pictures using MapMint4ME</h3>
+
+<ul>
+  <li>Created a <a href="https://github.com/ayoubft/MapMint4ME/commit/ec347c0e5161395c31c04a7cee5a8af2bdca3c38">button</a> that direct you to the <a href="https://github.com/ayoubft/MapMint4ME/commit/abee7d7faad96fa1ff984a517f86b543cc02f25a">this layout</a>.</li>
+  <li>I have created a form that can be filled with a fixed number of images taken from the mobile MapMint4ME app, and will be transfered to MapMint, here is <a href="https://github.com/ayoubft/Journey-GSoC-21/wiki/Create-a-FORM-in-MapMint-to-save-images-from-MapMint4ME-needed-for-3D-constructing-a-model">how to do it</a>.</li>
+  <li>I have some issues regarding linking MapMint to MapMint4ME, so I did get the datasets for buildings from <a href="https://colmap.github.io/datasets.html">here</a>, and I have taken the tajjin pictures by myself.</li>
+</ul>
+
+<h3 id="part-two-create-the-3d-model-using-odm">Part Two: Create the 3D model using ODM</h3>
+
+<ul>
+  <li>I have created a 3D model from pictures, here is the <a href="https://github.com/ayoubft/Journey-GSoC-21/wiki/Create-3D-scene-using-ODM">tutorial</a>.</li>
+</ul>
+
+<h3 id="part-three-visualize-the-3d-model-in-mapmint">Part Three: Visualize the 3D model in MapMint</h3>
+
+<ul>
+  <li>Got MapMint working on virtual machine <a href="https://github.com/ayoubft/Journey-GSoC-21/wiki/Setup-MapMint">tutorial here</a>, then I finished up with configuring it on Docker <a href="https://github.com/ayoubft/Journey-GSoC-21/wiki/Setup-MapMint-with-Docker">tutorial here</a>.</li>
+  <li>Added 3D models to the volume <a href="https://github.com/ayoubft/ZOO-Project/commit/1640b4464d1a37f747a807140f8006c121190b6f">see here</a>.</li>
+  <li>Used docker <a href="https://github.com/ayoubft/ZOO-Project/blob/docker-gsoc21/docker-compose.yml#L17-L18">volumes</a> to get access to the 3D models to be visualized.</li>
+  <li>Using <a href="https://threejs.org/">threeJS</a>, I was able to render the 3D models in MapMint, using a <a href="https://github.com/ayoubft/ZOO-Project/commit/8062585d9ec95af0a622c2f8c3ce92964621448c">template</a>.</li>
+</ul>
+
+<h2 id="code-repositories">Code Repositories:</h2>
+
+<ul>
+  <li><a href="https://github.com/ayoubft/ZOO-Project/tree/docker-gsoc21">ZOO-Project</a></li>
+  <li><a href="https://github.com/ayoubft/MapMint4ME">MapMint4ME</a></li>
+</ul>
+
+<h2 id="videos">Videos:</h2>
+
+<ul>
+  <li><a href="https://drive.google.com/file/d/150PgaYOqNWTER8W0CTFqRQ4JDvy9SpLA/view?usp=sharing">Loading Models</a></li>
+</ul>
+
+<h2 id="other-important-links">Other Important Links:</h2>
+
+<ul>
+  <li><a href="https://github.com/ayoubft/Journey-GSoC-21/wiki">Wiki on GitHub</a></li>
+  <li><a href="https://wiki.osgeo.org/wiki/Integrating_a_module_to_3d_scan_a_house_within_the_MapMint4ME_android_application">Project on OSGeo Wiki</a></li>
+</ul>
+
+  </div>
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<div class="page__footer-copyright">
+    <a href="https://github.com/ayoubft/ayoubft.github.io">Make changes</a>
+</div>
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Ayoub Fatihi. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-318K7LT5FJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-318K7LT5FJ');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

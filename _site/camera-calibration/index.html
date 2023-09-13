@@ -1,0 +1,598 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Camera Calibration - Ayoub Fatihi</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Ayoub Fatihi">
+<meta property="og:title" content="Camera Calibration">
+
+
+  <link rel="canonical" href="http://localhost:4000/camera-calibration/">
+  <meta property="og:url" content="http://localhost:4000/camera-calibration/">
+
+
+
+  <meta property="og:description" content="In this post we will review what’s camera calibration, why it’s needed and how to do it.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2022-07-19T00:00:00-07:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Ayoub Fatihi",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Ayoub Fatihi Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Ayoub Fatihi</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/about/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/projects/">Get Inspired (projects)</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+<div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/me2022.jpg" class="author__avatar" alt="Ayoub Fatihi">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Ayoub Fatihi</h3>
+    <p class="author__bio">Geomatics and Surveying Engineer</p>
+    <p class="author__bio">Machine learning enthusiast</p>
+    
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Morocco</li>
+      
+      
+      
+      
+        <li><a href="mailto:fatihi.ayb at gmail.com" target="_blank" rel="noopener"><i class="fas fa-fw fa-envelope" aria-hidden="true"></i> Email</a></li>
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/ayoubft" target="_blank" rel="noopener"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://scholar.google.com/citations?user=0-f2eX0AAAAJ" target="_blank" rel="noopener"><i class="fas fa-fw fa-graduation-cap"></i> Google Scholar</a></li>
+      
+      
+      
+        <li><a href="https://orcid.org/my-orcid?orcid=0000-0001-8572-6553" target="_blank" rel="noopener"><i class="ai ai-orcid-square ai-fw"></i> ORCID</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+</div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <meta itemprop="headline" content="Camera Calibration">
+    
+    <meta itemprop="description" content="In this post we will review what’s camera calibration, why it’s needed and how to do it.">
+    
+    
+    <meta itemprop="datePublished" content=" July 19, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+      <header>
+        <h1 class="page__title" itemprop="headline">Camera Calibration
+</h1>
+        
+        
+
+        
+        <p class="page__date">
+          <i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time datetime="1900-01-01T00:00:00-08:00">July 19, 2022</time>
+          <span style="float:right;"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+ 1 minute read  </span>
+        </p>
+        
+
+
+        
+
+      </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>In this post we will review what’s camera calibration, why it’s needed and how to do it.</p>
+
+<h2 id="camera-calibration-theory">Camera Calibration Theory</h2>
+
+<h3 id="why-camera-calibration-">Why camera calibration ?</h3>
+
+<ul>
+  <li>
+    <p>When setting up a measurement system, it has to be carefully calibrated before any use, to get accurate results measurements. (Yes! you can use camera to take measures, see e.g. <em>photogrammetry</em>)</p>
+  </li>
+  <li>
+    <p>To remove the distortions introduced by the camera [lens]</p>
+  </li>
+  <li>
+    <p>Ensure that the features of the image behave according to the laws of projective geometry (The most important preserved property is <em>COLINEARITY</em>)</p>
+  </li>
+  <li>
+    <p>Definition of the precise direction of the projection ray for each pixel.</p>
+  </li>
+</ul>
+
+<h3 id="different-classifications">Different Classifications:</h3>
+
+<p><strong>1</strong>. <strong>Linear</strong> vs <strong>Non-linear</strong>: “usually differentiated depending on the modelling of lens distortion”.</p>
+
+<p><strong>2</strong>. <strong>Intrinsic</strong> vs <strong>Extrinsic</strong>: “Intrinsic calibration is concerned only with obtaining the physical and optical parameters of the camera. Besides, extrinsic calibration concerns the measurement of the position and orientation of the camera in the scene”.</p>
+
+<p><strong>3</strong>. <strong>Implicit</strong> vs <strong>Explicit</strong>: “Implicit calibration is the process of calibrating a camera without explicitly computing its physical parameters. Although, the results can be used for 3D measurement and the generation of image coordinates, they are useless for camera modelling as the obtained parameters do not correspond to the physical ones”.</p>
+
+<p><strong>4</strong>. <strong>Use of 3D points</strong> vs <strong>Use of geometrical properties</strong>: “the methods which use known 3D points as a calibrating pattern or even a reduced set of 3D points, with respect to others which use geometrical properties in the scene such as vanishing lines or other line features”.</p>
+
+<h2 id="references">References:</h2>
+
+<ul>
+  <li>Salvi, Joaquim, Xavier Armangué, and Joan Batlle. “A Comparative Review of Camera Calibrating Methods with Accuracy Evaluation.” Pattern Recognition 35, no. 7 (July 2002): 1617–35. https://doi.org/10.1016/S0031-3203(01)00126-1.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#camera-calibration" class="page__taxonomy-item" rel="tag">camera-calibration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#computer-vision" class="page__taxonomy-item" rel="tag">computer-vision</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#python" class="page__taxonomy-item" rel="tag">python</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/posts/2021/06/3d-model/" class="pagination--pager" title="Create 3D model from pictures using ODM
+">Previous</a>
+    
+    
+      <a href="http://localhost:4000/life-freiberg/" class="pagination--pager" title="Life in Freiberg
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+  <div class="page__related">
+    
+    <h4 class="page__related-title">You May Also Enjoy
+    </h4>
+    
+    <div class="grid__wrapper">
+      
+      
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+      
+      
+      
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+      <a href="http://localhost:4000/ref-manag-zotero/" rel="permalink">Manage references with Zotero
+</a>
+      
+    </h2>
+
+    
+    
+
+    
+    <p class="page__date"><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time
+        datetime="2023-04-02T00:00:00-07:00">April 02, 2023</time></p>
+    
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>[Coming soon …] Managing your sources and using them easily can be overwhelming, but Zotero to the rescue.</p>
+</p>
+    
+
+  </article>
+</div>
+      
+      
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+      <a href="http://localhost:4000/life-freiberg/" rel="permalink">Life in Freiberg
+</a>
+      
+    </h2>
+
+    
+    
+
+    
+    <p class="page__date"><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time
+        datetime="2022-10-24T00:00:00-07:00">October 24, 2022</time></p>
+    
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Life in Freiberg, some useful advice for students.</p>
+
+</p>
+    
+
+  </article>
+</div>
+      
+      
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+      <a href="http://localhost:4000/posts/2021/06/3d-model/" rel="permalink">Create 3D model from pictures using ODM
+</a>
+      
+    </h2>
+
+    
+    
+
+    
+    <p class="page__date"><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> <time
+        datetime="2021-06-05T00:00:00-07:00">June 05, 2021</time></p>
+    
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>In this tutorial, we will be creating a 3D model of a tajine from 44 pictures. We will be using OpenDroneMap open source software.</p>
+
+</p>
+    
+
+  </article>
+</div>
+      
+
+    </div>
+  </div>
+  
+</div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<div class="page__footer-copyright">
+    <a href="https://github.com/ayoubft/ayoubft.github.io">Make changes</a>
+</div>
+<!-- end custom footer snippets -->
+        
+
+<div class="page__footer-copyright">&copy; 2023 Ayoub Fatihi. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-318K7LT5FJ"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-318K7LT5FJ');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+
